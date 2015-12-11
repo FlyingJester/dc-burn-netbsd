@@ -25,7 +25,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-version=6.0_BETA2
+version=6.1.2
 kernel_type=GENERIC_MD
 iso_image=data.raw
 tmpdir=dc-burn-netbsd-files
@@ -199,11 +199,11 @@ echo -n "$file: "
 if [ ! -f $file ] ; then
     mkdir -p $(dirname $file)
     # Fall back to looking in NetBSD-archive
-    if ! ftp -o - $dist_url > /dev/null ; then
+    if ! wget $dist_url > /dev/null ; then
 	echo "Switching to NetBSD-archive"
 	dist_url=http://ftp.netbsd.org/pub/NetBSD/NetBSD-archive/NetBSD-$version/dreamcast/binary
     fi
-    ftp -o $file.tmp $dist_url/$remotefile
+    wget -o $file.tmp $dist_url/$remotefile
     mv $file.tmp $file
 else
     echo "already present"
